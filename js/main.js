@@ -293,9 +293,25 @@ function highlightActiveSection() {
             isWeb3Initialized = false;
                 return false;
             }
-        } else {
-            console.warn("No Ethereum browser extension detected. Please install MetaMask or OKX Wallet.");
-        isWeb3Initialized = false;
+        }
+        
+        // Fallback to BSC RPC URL for read-only access when no wallet is connected
+        try {
+            console.log("No wallet detected. Using read-only Web3 with BSC RPC URL");
+            web3 = new Web3(new Web3.providers.HttpProvider(bscRpcUrls[0]));
+            
+            // Initialize contract instances
+            idoContract = new web3.eth.Contract(idoABI, idoAddress);
+            usdtContract = new web3.eth.Contract(erc20ABI, usdtAddress);
+            mmfContract = new web3.eth.Contract(erc20ABI, mmfAddress);
+            
+            isWeb3Initialized = true;
+            console.log("Contract instances initialized in read-only mode");
+            
+            return true;
+        } catch (error) {
+            console.error("Error initializing read-only Web3:", error);
+            isWeb3Initialized = false;
             return false;
         }
     }
@@ -362,8 +378,27 @@ function highlightActiveSection() {
     
     // Wallet option selection
     walletOptions.forEach(option => {
+        const walletType = option.getAttribute('data-wallet');
+        
+        // Add disabled class to Binance Wallet and WalletConnect options
+        if (walletType === 'binance' || walletType === 'walletconnect') {
+            option.classList.add('disabled-wallet');
+            option.setAttribute('title', 'This wallet option is currently disabled');
+        }
+        
         option.addEventListener('click', function() {
             const walletType = this.getAttribute('data-wallet');
+            
+            // Prevent connection for disabled wallet types
+            if (walletType === 'binance' || walletType === 'walletconnect') {
+                showNotification(
+                    'Wallet Disabled', 
+                    'This wallet option is currently disabled.', 
+                    'info'
+                );
+                return;
+            }
+            
             selectedWalletType = walletType;
             
             // Hide modal
@@ -525,14 +560,8 @@ function highlightActiveSection() {
                 }
             }
 
-            // Set the selected wallet type
-            selectedWalletType = 'okx';
-            
-            showNotification(
-                'Wallet Connected', 
-                'OKX Wallet connected successfully!', 
-                'success'
-            );
+            // Handle successful connection
+            handleSuccessfulConnection('okx', accounts);
             return true;
         } catch (error) {
             console.error('OKX Wallet connection error:', error);
@@ -1635,6 +1664,12 @@ function handleSuccessfulConnection(walletType, walletAccounts) {
         'Wallet connected successfully!', 
         'success'
     );
+    
+    // Refresh the page after a short delay to ensure all components are properly initialized
+    setTimeout(() => {
+        console.log('Refreshing page after wallet connection');
+        window.location.reload();
+    }, 1500); // 1.5 second delay to allow notification to be seen
 }
 
 // Highlight active section on page load
@@ -2240,6 +2275,23 @@ function addLiveDataStyles() {
     @keyframes progress-bar-stripes {
       from { background-position: 1rem 0; }
       to { background-position: 0 0; }
+    }
+    
+    .disabled-wallet {
+      opacity: 0.5;
+      cursor: not-allowed;
+      position: relative;
+    }
+    
+    .disabled-wallet::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: inherit;
     }
   `;
   document.head.appendChild(style);
