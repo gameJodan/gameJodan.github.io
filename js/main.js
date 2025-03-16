@@ -2066,7 +2066,7 @@ async function fetchIDOProgress(forceRefresh = false) {
         console.log('IDO Progress Updated:');
         console.log('- Sold Shares:', soldShares);
         console.log('- Remaining Shares:', remainingShares);
-        console.log('- Current Raised:', currentRaisedAmount, 'MMF');
+        console.log('- Current Minted:', currentRaisedAmount, 'MMF');
         console.log('- Total Target:', totalFundraisingTarget, 'MMF');
         console.log('- Progress:', progressPercentage.toFixed(2), '%');
         
@@ -2189,7 +2189,7 @@ function updateFundraisingUI(currentRaisedAmount, progressPercentage, totalTarge
   
   // Log the updated values
   console.log('Fundraising UI Updated:');
-  console.log('- Current Raised:', (currentRaisedAmount*9500).toLocaleString(), 'MMF');
+  console.log('- Current Minted:', (currentRaisedAmount*9500).toLocaleString(), 'MMF');
   console.log('- Total Target:', (totalTarget*9500).toLocaleString(), 'MMF');
   console.log('- Progress:', progressPercentage.toFixed(2), '%');
 }
