@@ -1123,12 +1123,12 @@ async function updateReferralCount(address) {
             const shareValueInUSDT = web3.utils.fromWei(shareValue, 'ether');
             
             // Calculate current raised amount and total target
-            const currentRaisedAmount = soldShares * parseFloat(shareValueInUSDT);
-            const totalFundraisingTarget = totalShares * parseFloat(shareValueInUSDT);
+            const currentRaisedAmount = soldShares * parseFloat(9500);
+            const totalFundraisingTarget = totalShares * parseFloat(9500);
             
             console.log("soldShares:", soldShares);
-            console.log("Current Raised:", currentRaisedAmount, "USDT");
-            console.log("Total Target:", totalFundraisingTarget, "USDT");
+            console.log("Current Minted:", currentRaisedAmount, "MMF");
+            console.log("Total Target:", totalFundraisingTarget, "MMF");
             
             // Calculate progress percentage
             const progressPercentage = (soldShares / totalShares) * 100;
@@ -2041,10 +2041,10 @@ async function fetchIDOProgress(forceRefresh = false) {
         const shareValueInUSDT = web3.utils.fromWei(shareValue, 'ether');
         
         // Calculate current raised amount
-        const currentRaisedAmount = soldShares * parseFloat(shareValueInUSDT);
+        const currentRaisedAmount = soldShares * parseFloat(9500);
         
         // Calculate total fundraising target
-        const totalFundraisingTarget = totalShares * parseFloat(shareValueInUSDT);
+        const totalFundraisingTarget = totalShares * parseFloat(9500);
         
         // Calculate progress percentage
         const progressPercentage = (soldShares / totalShares) * 100;
@@ -2066,8 +2066,8 @@ async function fetchIDOProgress(forceRefresh = false) {
         console.log('IDO Progress Updated:');
         console.log('- Sold Shares:', soldShares);
         console.log('- Remaining Shares:', remainingShares);
-        console.log('- Current Raised:', currentRaisedAmount, 'USDT');
-        console.log('- Total Target:', totalFundraisingTarget, 'USDT');
+        console.log('- Current Raised:', currentRaisedAmount, 'MMF');
+        console.log('- Total Target:', totalFundraisingTarget, 'MMF');
         console.log('- Progress:', progressPercentage.toFixed(2), '%');
         
         return {
@@ -2141,7 +2141,7 @@ function updateFundraisingUI(currentRaisedAmount, progressPercentage, totalTarge
   
   // Update current raised text
   if (currentRaisedElement) {
-    currentRaisedElement.textContent = `${currentRaisedAmount.toLocaleString()} U`;
+    currentRaisedElement.textContent = `${currentRaisedAmount.toLocaleString()} MMF`;
     
     // Add visual indicator for live data
     if (isLiveData) {
@@ -2169,17 +2169,17 @@ function updateFundraisingUI(currentRaisedAmount, progressPercentage, totalTarge
   // Update total fundraising target
   // First try the cached element
   if (fundraisingTargetElement) {
-    fundraisingTargetElement.textContent = `${totalTarget.toLocaleString()} U`;
+    fundraisingTargetElement.textContent = `${totalTarget.toLocaleString()} MMF`;
   } else {
     // If the cached element doesn't exist, try to find it again
     const totalTargetElement = document.getElementById('fundraisingTarget');
     if (totalTargetElement) {
-      totalTargetElement.textContent = `${totalTarget.toLocaleString()} U`;
+      totalTargetElement.textContent = `${totalTarget.toLocaleString()} MMF`;
     } else {
       // If still not found, try with class selector
       const targetElement = document.querySelector('.fundraising-target');
       if (targetElement) {
-        targetElement.textContent = `${totalTarget.toLocaleString()} U`;
+        targetElement.textContent = `${totalTarget.toLocaleString()} MMF`;
       } else {
         // Log a warning if we can't find the element
         console.warn('Could not find element to display fundraising target. Make sure there is an element with id="fundraisingTarget" or class="fundraising-target".');
@@ -2189,8 +2189,8 @@ function updateFundraisingUI(currentRaisedAmount, progressPercentage, totalTarge
   
   // Log the updated values
   console.log('Fundraising UI Updated:');
-  console.log('- Current Raised:', currentRaisedAmount.toLocaleString(), 'U');
-  console.log('- Total Target:', totalTarget.toLocaleString(), 'U');
+  console.log('- Current Raised:', (currentRaisedAmount*9500).toLocaleString(), 'MMF');
+  console.log('- Total Target:', (totalTarget*9500).toLocaleString(), 'MMF');
   console.log('- Progress:', progressPercentage.toFixed(2), '%');
 }
 
