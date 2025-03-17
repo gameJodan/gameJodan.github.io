@@ -1986,11 +1986,11 @@ const erc20ABI = [
 ];
 
 // Contract addresses
-const idoAddress = '0xc408394Ec2c164114A5ebc77447D1f2e8c651dd4';
-// now test //TOTO
+const idoAddress = '0x60050849Fd68Dfa92374867927b4547Ea97361e6';
+// now test //TODO
 // const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // BSC USDT
-const usdtAddress = '0x9160296a93Fa1fc7dB255F73C0DE639ac4cabD5b'; // BSC USDT
-const mmfAddress = '0xFd5a1171628b84bCE15dA7830b0D6337317A5726';
+const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // BSC USDT
+const mmfAddress = '0xAd935D4e86093ccC1E46A921144A6B5bd3f137Be';
 
 // BSC RPC URLs (with fallbacks)
 const bscRpcUrls = [
