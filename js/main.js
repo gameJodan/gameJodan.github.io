@@ -1971,7 +1971,7 @@ function initIdoSection() {
 
 // IDO Contract ABI (only the functions we need)
 const idoABI = [
-  {"inputs":[],"name":"getIDOInfo","outputs":[{"internalType":"uint256","name":"soldSharesCount","type":"uint256"},{"internalType":"uint256","name":"remainingSharesCount","type":"uint256"}],"stateMutability":"view","type":"function"},
+  {"inputs":[],"name":"getIDOInfo","outputs":[{"internalType":"uint256","name":"soldSharesCount","type":"uint256"},{"internalType":"uint256","name":"remainingSharesCount","type":"uint256"},{"internalType": "bool", "name": "activeStatus", "type": "bool"}],"stateMutability":"view","type":"function"},
   {"inputs":[],"name":"shareValue","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
   {"inputs":[{"internalType":"uint256","name":"shares","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},
   {"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"getUserInfo","outputs":[{"internalType":"uint256","name":"purchasedShares","type":"uint256"},{"internalType":"uint256","name":"remainingShares","type":"uint256"},{"internalType":"uint256","name":"referralCount","type":"uint256"}],"stateMutability":"view","type":"function"}
@@ -1986,11 +1986,9 @@ const erc20ABI = [
 ];
 
 // Contract addresses
-const idoAddress = '0x60050849Fd68Dfa92374867927b4547Ea97361e6';
-// now test //TODO
-// const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // BSC USDT
-const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // BSC USDT
-const mmfAddress = '0xAd935D4e86093ccC1E46A921144A6B5bd3f137Be';
+const idoAddress = '0xDA4F66fD9E81284c9229Bd33e63c0b636B7f2419';
+const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; 
+const mmfAddress = '0x0a612DbC5efa4f68a1Ca08fe5E00C3266732dAC9';
 
 // BSC RPC URLs (with fallbacks)
 const bscRpcUrls = [
